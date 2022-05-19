@@ -14,11 +14,17 @@
     font-size: 2.5rem;
     font-weight: 700;
     height: 3rem;
+    max-height: 3rem;
     width: 3.4rem;
     display: flex;
     justify-content: center;
     align-items: center;
     text-transform: uppercase;
+    transition: all 1s;
+}
+.letter-box.pre-animation {
+    opacity:0;
+    max-height: 0;
 }
 .letter-box.correct {
     background-color: #6aaa64;

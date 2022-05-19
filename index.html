@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 <body>
     <div class="container">
@@ -19,85 +20,42 @@
             </div>
         </div>
         <hr class="mt-0">
-        <div id="game-board">
-            <div class="letter-row">
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-            </div>
-            <div class="letter-row">
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-            </div>
-            <div class="letter-row">
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-            </div>
-            <div class="letter-row">
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-            </div>
-            <div class="letter-row">
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-            </div>
-            <div class="letter-row">
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-                <div class="letter-box"></div>
-            </div>
-        </div>
+        <div id="game-board"></div>
         <div id="keyboard-cont" class="my-4">
             <div class="first-row">
-                <button class="keyboard-button">q</button>
-                <button class="keyboard-button">w</button>
-                <button class="keyboard-button">e</button>
-                <button class="keyboard-button">r</button>
-                <button class="keyboard-button">t</button>
-                <button class="keyboard-button">y</button>
-                <button class="keyboard-button">u</button>
-                <button class="keyboard-button">i</button>
-                <button class="keyboard-button">o</button>
-                <button class="keyboard-button">p</button>
+                <button class="keyboard-button" data-value="q">q</button>
+                <button class="keyboard-button" data-value="w">w</button>
+                <button class="keyboard-button" data-value="e">e</button>
+                <button class="keyboard-button" data-value="r">r</button>
+                <button class="keyboard-button" data-value="t">t</button>
+                <button class="keyboard-button" data-value="y">y</button>
+                <button class="keyboard-button" data-value="u">u</button>
+                <button class="keyboard-button" data-value="i">i</button>
+                <button class="keyboard-button" data-value="o">o</button>
+                <button class="keyboard-button" data-value="p">p</button>
             </div>
             <div class="second-row">
-                <button class="keyboard-button">a</button>
-                <button class="keyboard-button">s</button>
-                <button class="keyboard-button">d</button>
-                <button class="keyboard-button">f</button>
-                <button class="keyboard-button">g</button>
-                <button class="keyboard-button">h</button>
-                <button class="keyboard-button">j</button>
-                <button class="keyboard-button">k</button>
-                <button class="keyboard-button">l</button>
-                <button class="keyboard-button">ñ</button>
+                <button class="keyboard-button" data-value="a">a</button>
+                <button class="keyboard-button" data-value="s">s</button>
+                <button class="keyboard-button" data-value="d">d</button>
+                <button class="keyboard-button" data-value="f">f</button>
+                <button class="keyboard-button" data-value="g">g</button>
+                <button class="keyboard-button" data-value="h">h</button>
+                <button class="keyboard-button" data-value="j">j</button>
+                <button class="keyboard-button" data-value="k">k</button>
+                <button class="keyboard-button" data-value="l">l</button>
+                <button class="keyboard-button" data-value="ñ">ñ</button>
             </div>
             <div class="third-row">
-                <button class="keyboard-button">Del</button>
-                <button class="keyboard-button">z</button>
-                <button class="keyboard-button">x</button>
-                <button class="keyboard-button">c</button>
-                <button class="keyboard-button">v</button>
-                <button class="keyboard-button">b</button>
-                <button class="keyboard-button">n</button>
-                <button class="keyboard-button">m</button>
-                <button class="keyboard-button">Enter</button>
+                <button class="keyboard-button" data-value="Backspace">Del</button>
+                <button class="keyboard-button" data-value="z">z</button>
+                <button class="keyboard-button" data-value="x">x</button>
+                <button class="keyboard-button" data-value="c">c</button>
+                <button class="keyboard-button" data-value="v">v</button>
+                <button class="keyboard-button" data-value="b">b</button>
+                <button class="keyboard-button" data-value="n">n</button>
+                <button class="keyboard-button" data-value="m">m</button>
+                <button class="keyboard-button" data-value="Enter">Enter</button>
             </div>
         </div>
     </div>
@@ -143,8 +101,7 @@
           </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js" type="module"></script>
 </body>
 </html>
