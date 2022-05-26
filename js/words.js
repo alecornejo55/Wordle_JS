@@ -1,4 +1,4 @@
-const wordsBD = [
+export const wordsBD = [
     "ameno", "ficus", "audio", "ratio", "laser",
     "dieta", "avena", "fuego", "duelo", "sueño",
     "cuero", "cielo", "nieto", "bolsa", "raton",
@@ -35,4 +35,13 @@ const wordsBD = [
     "panes", "silba", "falta", "doblo", "porra",
     "turra", "saque", "nadie"
 ];
-export default wordsBD;
+
+export const getRandomWord = async () => {
+    try {
+        const response = await fetch('https://palabras-aleatorias-public-api.herokuapp.com/random-by-length?length=5');
+        const randomWord = await response.json();
+        return randomWord.body["Word"];
+    } catch (error) {
+        console.log("Hubo un error");
+    }
+}
