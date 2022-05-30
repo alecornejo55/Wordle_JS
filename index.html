@@ -17,7 +17,11 @@
     <div class="container" id="homeGame">
         <div class="row my-2">
             <div class="col-12">
-                <h1 class="m-0"> ¡Bienvenido a Wordle!</h1>
+                <h1 class="m-0"> 
+                    ¡Bienvenido a Wordle!
+                    <i class="bi bi-question-circle fa-3x" style="font-size: 1.3rem;cursor: pointer;" data-bs-toggle="modal" data-bs-target="#comoJugar"></i> 
+                    <i class="bi bi-gear" style="font-size: 1.3rem;cursor: pointer;" data-bs-toggle="modal" data-bs-target="#settings"></i> 
+                </h1>
             </div>
         </div>
         <hr class="mt-0">
@@ -63,7 +67,11 @@
     <div class="container d-none" id="dashGame">
         <div class="row my-2">
             <div class="col-12">
-                <h1 class="m-0"> Wordle <i class="bi bi-question-circle fa-3x" style="font-size: 1.3rem;cursor: pointer;"  data-bs-toggle="modal" data-bs-target="#comoJugar"></i> </h1>
+                <h1 class="m-0"> 
+                    Wordle 
+                    <i class="bi bi-question-circle fa-3x" style="font-size: 1.3rem;cursor: pointer;" data-bs-toggle="modal" data-bs-target="#comoJugar"></i> 
+                    <i class="bi bi-gear" style="font-size: 1.3rem;cursor: pointer;" data-bs-toggle="modal" data-bs-target="#settings"></i> 
+                </h1>
             </div>
         </div>
         <hr class="mt-0">
@@ -147,6 +155,26 @@
                         <div class="letter-box incorrect">O</div>
                     </div>
                     <span>La letra <b>O</b> no está en la palabra.</span>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal fade" id="settings" tabindex="-1" aria-labelledby="settingsLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+          <div class="modal-content">
+            <div class="modal-header col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                <h5 class="modal-title text-center">Ajustes</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                <div class="row">
+                    <div class="col-8">
+                        <label>Modo oscuro</label>
+                    </div>
+                    <div class="col-4 text-end">
+                        <input class="apple-switch" type="checkbox" value="true" id="switchDarkMode">
+                    </div>
                 </div>
             </div>
           </div>

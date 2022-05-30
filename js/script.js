@@ -5,17 +5,19 @@ const CANTLETTERS = 5;
 let currWord = 0;
 let currLetter = 0;
 let currGuess = [];
+let darkMode = JSON.parse(localStorage.getItem('darkMode')) ?? false;
+// boton darkmode
+const btnDarkMode = document.getElementById('switchDarkMode');
 
-
-const starGame = async () => {
+const starGame = () => {
     const homeGame = document.getElementById("homeGame");
     const dashGame = document.getElementById("dashGame");
     const divLoading = document.getElementById("loading");
     const kboard = document.getElementById('keyboard-cont');
     homeGame.classList.toggle('d-none');
     dashGame.classList.toggle('d-none');
-    const randomWord = await getRandomWord();
-    console.log(randomWord);
+    // const randomWord = await getRandomWord();
+    // console.log(randomWord);
     renderBoard();
     divLoading.classList.toggle('d-none');
     kboard.classList.toggle('d-none');
@@ -30,9 +32,22 @@ const starGame = async () => {
         if(keyValue !== null){
             keyboardActions(keyValue);
         }
+        keyClicked.blur();
     });
 }
 
+const switchDarkMode = (checkDarkMode) => {
+    const body = document.querySelector('body');
+    // console.log(checkDarkMode);
+    if(checkDarkMode){
+        body.classList.add('darkmode');
+    }
+    else {
+        body.classList.remove('darkmode');
+    }
+    btnDarkMode.checked = checkDarkMode;
+    localStorage.setItem('darkMode', JSON.stringify(checkDarkMode));
+}
 const renderBoard = () => {
     const gameBoardContainer = document.getElementById("game-board");
     // recorre cantidad de filas
@@ -57,7 +72,7 @@ const renderBoard = () => {
 // Función que ingresa letra en el tablero
 const insertLetter = (newLetter) => {
     if(currLetter < CANTLETTERS){
-        const word = document.querySelectorAll('.letter-row')[currWord];
+        const word = document.querySelectorAll('#game-board .letter-row')[currWord];
         const letter = word.children[currLetter];
         animateCSS(letter, "fadeIn", undefined, 0.2);
         letter.innerText = newLetter;
@@ -69,7 +84,7 @@ const insertLetter = (newLetter) => {
 // Función que elimina letra del tablero
 const deleteLetter = () => {
     if(currLetter > 0){
-        const word = document.querySelectorAll('.letter-row')[currWord];
+        const word = document.querySelectorAll('#game-board .letter-row')[currWord];
         const letter = word.children[(currLetter - 1)];
         animateCSS(letter, "fadeOut", undefined, 0.2);
         letter.innerText = '';
@@ -82,7 +97,7 @@ const deleteLetter = () => {
 const validateWord = async () => {
     // console.log(currLetter);
     // console.log(currWord);
-    const word = document.querySelectorAll('.letter-row')[currWord];
+    const word = document.querySelectorAll('#game-board .letter-row')[currWord];
     if(currLetter !== CANTLETTERS && currWord < CANTWORDS){
         animateCSS(word, "headShake", undefined, 0.8);
         Toastify({
@@ -100,7 +115,7 @@ const validateWord = async () => {
             }).showToast();
             return false;
         }
-        console.log(word);
+        // console.log(word);
         for (const letter of word.children) {
             letter.classList.add('incorrect')
             await animateCSS(letter, 'fadeIn', undefined, 0.3);
@@ -133,6 +148,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
     btnStart.addEventListener('click', (e) => {
         starGame();
     });
-    // Renderizamos tablero
-    // starGame();
+
+    // acción boton darkmode
+    btnDarkMode.onclick = (e) => {
+        const checkDarkMode = btnDarkMode.checked;
+        switchDarkMode(checkDarkMode);
+    };
+    //Ejecutamos por primera vez el darkmode
+    switchDarkMode(darkMode);
 });
