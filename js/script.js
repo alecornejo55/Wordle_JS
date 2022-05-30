@@ -16,7 +16,7 @@ const starGame = () => {
     const kboard = document.getElementById('keyboard-cont');
     homeGame.classList.toggle('d-none');
     dashGame.classList.toggle('d-none');
-    // const randomWord = await getRandomWord();
+    const randomWord = await getRandomWord();
     // console.log(randomWord);
     renderBoard();
     divLoading.classList.toggle('d-none');
