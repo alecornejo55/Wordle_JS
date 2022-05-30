@@ -6,7 +6,34 @@ let currWord = 0;
 let currLetter = 0;
 let currGuess = [];
 
-const renderGameBoard = () => {
+
+const starGame = async () => {
+    const homeGame = document.getElementById("homeGame");
+    const dashGame = document.getElementById("dashGame");
+    const divLoading = document.getElementById("loading");
+    const kboard = document.getElementById('keyboard-cont');
+    homeGame.classList.toggle('d-none');
+    dashGame.classList.toggle('d-none');
+    const randomWord = await getRandomWord();
+    console.log(randomWord);
+    renderBoard();
+    divLoading.classList.toggle('d-none');
+    kboard.classList.toggle('d-none');
+    // Evento cuando escriben por teclado físico
+    window.addEventListener("keyup", (event) => {
+        keyboardActions(event.key);
+    });
+    // Eventos cuando usan el teclado virtual
+    kboard.addEventListener('click', (e) => {
+        const keyClicked = e.target;
+        const keyValue = keyClicked.getAttribute('data-value');
+        if(keyValue !== null){
+            keyboardActions(keyValue);
+        }
+    });
+}
+
+const renderBoard = () => {
     const gameBoardContainer = document.getElementById("game-board");
     // recorre cantidad de filas
     for(let row = 1 ; row <= CANTWORDS; row++){
@@ -26,6 +53,7 @@ const renderGameBoard = () => {
         }
     }
 }
+
 // Función que ingresa letra en el tablero
 const insertLetter = (newLetter) => {
     if(currLetter < CANTLETTERS){
@@ -59,10 +87,7 @@ const validateWord = async () => {
         animateCSS(word, "headShake", undefined, 0.8);
         Toastify({
             text: "La palabra debe contener 5 letras",
-            style: {
-                background: "rgb(220,53,69)",
-                background: "linear-gradient(90deg, rgba(220,53,69,1) 0%, rgba(255,108,122,1) 100%)"
-            }
+            className: "toastError",
         }).showToast();
     }
     if(currLetter === CANTLETTERS && currWord < CANTWORDS){
@@ -71,17 +96,14 @@ const validateWord = async () => {
             animateCSS(word, "headShake", undefined, 0.8);
             Toastify({
                 text: `La palabra '${thisGuess}' no existe en el diccionario`,
-                style: {
-                    background: "rgb(220,53,69)",
-                    background: "linear-gradient(90deg, rgba(220,53,69,1) 0%, rgba(255,108,122,1) 100%)"
-                }
+                className: "toastError",
             }).showToast();
             return false;
         }
         console.log(word);
         for (const letter of word.children) {
             letter.classList.add('incorrect')
-            await animateCSS(letter, 'fadeIn', undefined, 0.4);
+            await animateCSS(letter, 'fadeIn', undefined, 0.3);
         }
         currWord++;
         currLetter = 0;
@@ -106,20 +128,11 @@ const keyboardActions = (letter) => {
 
 // Función inicial
 window.addEventListener("DOMContentLoaded", (event) => {
-    // const randomWord = await getRandomWord();
-    // console.log(randomWord);
-    
+    // acción del botón de inicio de juego  
+    const btnStart = document.getElementById('btn-start');
+    btnStart.addEventListener('click', (e) => {
+        starGame();
+    });
     // Renderizamos tablero
-    renderGameBoard();
-    // Evento cuando escriben por teclado físico
-    window.addEventListener("keyup", (event) => {
-        keyboardActions(event.key);
-    })
-    // Eventos cuando usan el teclado virtual
-    const btnVirtualKB = document.querySelectorAll(".keyboard-button");
-    for(const keyb of btnVirtualKB) {
-        keyb.addEventListener('click', () => {
-            keyboardActions(keyb.getAttribute('data-value'));
-        });
-    }
+    // starGame();
 });

@@ -5,24 +5,74 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wordle</title>
-    <link rel="stylesheet" href="css/main.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="homeGame">
+        <div class="row my-2">
+            <div class="col-12">
+                <h1 class="m-0"> ¡Bienvenido a Wordle!</h1>
+            </div>
+        </div>
+        <hr class="mt-0">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h5 class="modal-title text-center mb-2">¿Cómo jugar?</h5>
+                <p>Adivina la palabra en 6 intentos.</p>
+                <p>Cada intento debe ser una palabra válida de 5 letras.</p>
+                <p>Después de cada intento, el color de la letra cambia para mostrar qué tan cerca estás de acertar la palabra.</p>
+                <p class="fw-bold">Ejemplos</p>
+                <div class="letter-row">
+                    <div class="letter-box correct">R</div>
+                    <div class="letter-box">U</div>
+                    <div class="letter-box">B</div>
+                    <div class="letter-box">I</div>
+                    <div class="letter-box">A</div>
+                </div>
+                <span>La letra <b>R</b> está en la palabra y en la posición correcta.</span>
+                <div class="letter-row">
+                    <div class="letter-box">V</div>
+                    <div class="letter-box">O</div>
+                    <div class="letter-box inWord">C</div>
+                    <div class="letter-box">A</div>
+                    <div class="letter-box">L</div>
+                </div>
+                <span>La letra <b>C</b> está en la palabra pero en la posición incorrecta.</span>
+                <div class="letter-row">
+                    <div class="letter-box">C</div>
+                    <div class="letter-box">A</div>
+                    <div class="letter-box">N</div>
+                    <div class="letter-box">T</div>
+                    <div class="letter-box incorrect">O</div>
+                </div>
+                <span>La letra <b>O</b> no está en la palabra.</span>
+            </div>
+        </div>
+        <div class="row" id="homeButtons">
+            <div class="col-8 offset-2">
+                <button class="btn btn-outline-success form-control fw-bold" id="btn-start">Empezar a jugar</button>
+            </div>
+        </div>
+    </div>
+    <div class="container d-none" id="dashGame">
         <div class="row my-2">
             <div class="col-12">
                 <h1 class="m-0"> Wordle <i class="bi bi-question-circle fa-3x" style="font-size: 1.3rem;cursor: pointer;"  data-bs-toggle="modal" data-bs-target="#comoJugar"></i> </h1>
             </div>
         </div>
         <hr class="mt-0">
+        <div class="d-flex align-items-center flex-column" id="loading">
+            <div class="spinner-grow text-bg-secondary" role="status"></div>
+            <p class="text fw-bold text-center text-secondary">... Iniciando ...</p>
+        </div>
         <div id="game-board"></div>
-        <div id="keyboard-cont" class="my-4">
+        <div id="keyboard-cont" class="my-4 d-none">
             <div class="first-row">
                 <button class="keyboard-button" data-value="q">q</button>
                 <button class="keyboard-button" data-value="w">w</button>
