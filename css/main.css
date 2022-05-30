@@ -113,7 +113,9 @@ h1 {
     background-color: #1a1a1a;
     color: #fff;
 }
-
+.darkmode .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
 input.apple-switch {
     position: relative;
     appearance: none; outline: none;
