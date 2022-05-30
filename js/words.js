@@ -52,7 +52,7 @@ export const getRandomWord = async () => {
         const response = await fetch('https://clientes.api.greenborn.com.ar/public-random-word?l=5', {
         });
         const randomWord = await response.json();
-        console.log(randomWord[0])
+        // console.log(randomWord[0])
         if(randomWord[0].length < 5){
             getRandomWord();
         }

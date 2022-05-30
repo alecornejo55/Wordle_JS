@@ -9,7 +9,7 @@ let darkMode = JSON.parse(localStorage.getItem('darkMode')) ?? false;
 // boton darkmode
 const btnDarkMode = document.getElementById('switchDarkMode');
 
-const starGame = () => {
+const starGame = async () => {
     const homeGame = document.getElementById("homeGame");
     const dashGame = document.getElementById("dashGame");
     const divLoading = document.getElementById("loading");
