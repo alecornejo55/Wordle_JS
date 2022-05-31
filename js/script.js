@@ -5,6 +5,7 @@ const CANTLETTERS = 5;
 let currWord = 0;
 let currLetter = 0;
 let currGuess = [];
+let randomWord = "";
 let darkMode = JSON.parse(localStorage.getItem('darkMode')) ?? false;
 // boton darkmode
 const btnDarkMode = document.getElementById('switchDarkMode');
@@ -16,7 +17,7 @@ const starGame = async () => {
     const kboard = document.getElementById('keyboard-cont');
     homeGame.classList.toggle('d-none');
     dashGame.classList.toggle('d-none');
-    const randomWord = await getRandomWord();
+    randomWord = await getRandomWord();
     // console.log(randomWord);
     renderBoard();
     divLoading.classList.toggle('d-none');
@@ -93,6 +94,24 @@ const deleteLetter = () => {
     }
 }
 
+const checkLetter = (letter, index) => {
+    letter = letter.toLowerCase();
+    let correct = 'incorrect';
+    // console.log(randomWord, index);
+    randomWord['array'].forEach((row, i) => {
+        if(row.letter == letter && i === index && row.validated === false){
+            correct = 'correct';
+            row.validated = true;
+        }
+        if(row.letter == letter && i !== index && row.validated === false && correct === 'incorrect'){
+            correct = 'inWord';
+            row.validated = true;
+        }
+        // console.log(row.letter, letter, i, row.validated);
+    });
+    return correct;
+}
+
 // Función que valida la palabra al presionar enter
 const validateWord = async () => {
     // console.log(currLetter);
@@ -102,7 +121,10 @@ const validateWord = async () => {
         animateCSS(word, "headShake", undefined, 0.8);
         Toastify({
             text: "La palabra debe contener 5 letras",
-            className: "toastError",
+            className: "bg-danger bg-gradient text-white",
+            style: {
+                background: "unset",
+            }
         }).showToast();
     }
     if(currLetter === CANTLETTERS && currWord < CANTWORDS){
@@ -111,18 +133,44 @@ const validateWord = async () => {
             animateCSS(word, "headShake", undefined, 0.8);
             Toastify({
                 text: `La palabra '${thisGuess}' no existe en el diccionario`,
-                className: "toastError",
+                className: "bg-danger bg-gradient text-white",
+                style: {
+                    background: "unset",
+                }
             }).showToast();
             return false;
         }
         // console.log(word);
+        let index = 0;
+        let correct = true;
         for (const letter of word.children) {
-            letter.classList.add('incorrect')
+            const letterText = letter.innerText.toLowerCase();
+            const thisLetter = checkLetter(letterText, index);
+            // console.log(letterText);
+            letter.classList.add(thisLetter);
+            document.querySelector(`.keyboard-button[data-value="${letterText}"]`).classList.add(thisLetter);
             await animateCSS(letter, 'fadeIn', undefined, 0.3);
+            if(thisLetter !== 'correct'){
+                correct = false;
+            }
+            index++;
         }
-        currWord++;
-        currLetter = 0;
-        currGuess = [];
+        if(correct){
+            Swal.fire(
+                '¡Felicitaciones!',
+                '¡Adivinaste la palabra!',
+                'success'
+            );
+            currWord = CANTWORDS;
+            currLetter = CANTLETTERS;
+        }
+        else {
+            // reseteo validaciones
+            randomWord['array'].map((row) => row.validated = false);
+            currWord++;
+            currLetter = 0;
+            currGuess = [];
+        }
         // console.log(currWord);
     }
 }

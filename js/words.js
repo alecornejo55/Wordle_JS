@@ -1,3 +1,4 @@
+import { baseURL } from "./base.js";
 export const wordsBD = [
     "ameno", "ficus", "audio", "ratio", "laser", "dieta", "avena", "fuego", "duelo", "sueño", "cuero", "cielo", "nieto", "bolsa", "raton",  "patin", "rapar", "canto", "arbol", "dardo", "covid", "gmail", "robar", "caeis", "padel", "caigo", "ganar", "metro", "cajon", "tonto", "arroz", "cejas", "manos", "brazo", "vamos", "vengo", "estar", "comer", "mojar", "orden", "beber", "decir", "poner", "madre", "padre", "llano", "hondo", "lindo", "caldo", "fumar", "cagar", "mocos", "vaper", "gatos", "perro", "ratas", "potos", "pollo", "porro", "chulo", "delta", "aireo", "fresa", "guapa", "guapo", "coche", "carro", "cavar", "adios", "cardo", "coral", "fiera", "fideo", "aleta", "parto", "golfo", "atado", "fuera", "tanto", "suave", "poema", "nueva", "menos", "trufa", "cerda", "rampa", "super", "litio", "cutre", "culos", "ratos", "monta", "suero", "tongo", "criba", "insta", "toros", "toreo", "ruedo", "juego", "claro", "rotar", "astro", "agrio", "rubio", "monja", "perno", "recta", "resta", "rubia", "ramon", "potra", "gordo", "gorda", "arpia", "jarto", "basto", "molar", "tetas", "bufas", "frigo", "tripa", "bravo", "berza", "droga", "listo", "razon", "terca", "brava", "serie", "busca", "guiar", "potar", "pitar", "justo", "crudo", "moñas", "penas", "menas", "brasa", "venas", "demas", "bruma", "plata", "karma", "pares", "hijas", "hijos", "pagar", "zorro", "atroz", "piano", "enano", "aureo", "cloro", "cromo", "corro", "piara", "pinos", "rupia", "panes", "silba", "falta", "doblo", "porra",
     "turra", "saque", "nadie","ababa","abaca","abaco","abada","abadi","abaja","abaje","abajo","abala","abale","abalo","abana","abane","abano","abaña","abañe","abaño","abasi","abata","abate","abati","abato","abece","abeja","abete","abeto","abiar","abias","abina","abine","abino","abiso","abita","abite","abito","aboba","abobe","abobo","aboca","aboco","abofa","abofe","abofo","aboga","abogo","aboli","abona","abone","abono","aboya","aboye","aboyo","abozo","abran","abras","abren","abres","abria","abrid","abril","abrio","abrir","abris","absit","abubo","abuce","abuje","abura","abure","aburo","abusa","abuse","abuso","abuza","abuzo","acaba","acabe","acabo","acama","acame","acamo","acana","acara","acare","acaro","acaso","acata","acate","acato","acebo","acece","aceda","acede","acedo","acema","aceña","acepa","acepe","acepo","acera","acere","acero","aceta","aceto","aceza","acezo","achin","achis","acial","aciar","acida","acido","acije","acilo","acimo","acion","acles","aclla","acmes","acnes","acoca","acoco","acoda","acode","acodo","acoge","acogi","acoja","acojo","acola","acole","acolo","acopa","acope","acopo","acora","acore","acoro","acosa","acose","acoso","acota","acote","acoto","acres","acroe","acroy","actas","actea","actor","actos","actua","actue","actuo","acuda","acude","acudi","acudo","acuea","acueo","acula","acule","aculo","acuna","acune","acuno","acuña","acuñe","acuño","acure","acusa","acuse","acuso","acuta","acuti","acuto","acuyo","adala","adama","adame","adamo","adaza","adema","ademe","ademo","adiad","adian","adiar","adias","adien","adies","adios",
@@ -46,21 +47,31 @@ export const wordsBD = [
     "vejas","vejen","vejes","vejez","velad","velan","velar","velas","velay","velen","veles","velis","veliz","vello","velon","velos","veloz","vemos","venal","venas","vence","venci","venda","vende","vendi","vendo","venga","vengo","venia","venid","venir","venis","venta","vente","vento","venus","venza","venzo","veran","veras","veraz","verba","verbo","verde","veres","verga","verge","veria","veril","verja","verme","vermu","veros","versa","verse","verso","verte","verti","veste","vesti","vetad","vetan","vetar","vetas","vetea","vetee","veten","veteo","vetes","veton","vetos","vezad","vezan","vezar","vezas","viada","viaja","viaje","viajo","vibra","vibre","vibro","vicha","viche","vicho","vichy","vicia","vicie","vicio","vicos","victo","vidas","video","vides","vidon","vidro","vieja","viejo","viene","viera","viere","viesa","viese","vigas","vigia","vigie","vigio","vigor","viles","villa","vilos","vimos","vinal","vinar","vinca","vinco","vinos","vinta","viñas","viola","viole","violo","virad","viral","viran","virar","viras","viren","vireo","vires","virgo","viril","virio","virol","viron","virus","visad","visan","visar","visas","visco","visea","visee","visen","viseo","vises","visir","vison","visor","visos","vista","viste","visto","vitad","vital","vitan","vitar","vitas","viten","vites","vitor","vitos","vitre","viuda","viudo","vivac","vivad","vivan","vivar","vivas","vivaz","viven","vives","vivez","vivia","vivid","vivio","vivir","vivis","vivon","vivos","voace","vocal","vocea","vocee","voceo","voces","vodca","vodus","voila","volad","volar","volas","volca","volco","volea","volee","voleo","volon","volts","volve","volvi","volvo","vomer","voraz","vosea","vosee","voseo","votad","votan","votar","votas","voten","votes","votos","votri","vozna","vozne","vozno","vudus","vuela","vuele","vuelo","vuesa","vueso","vulgo","vulto","vulva","vusco","xecas","xenon","xinca","xiote","xolas","xolos","yabas","yacal","yacas","yaced","yacen","yacer","yaces","yacia","yacio","yacon","yagan","yagas","yagua","yaiti","yales","yamao","yambo","yampa","yanas","yanta","yante","yanto","yapad","yapan","yapar","yapas","yapen","yapes","yapus","yaque","yaqui","yarda","yares","yarey","yaros","yatai","yatay","yates",
     "yayas","yayos","yazca","yazco","yazga","yazgo","yebos","yecos","yedgo","yedra","yegua","yelgo","yelmo","yemas","yendo","yenes","yente","yeral","yerba","yerga","yergo","yerma","yerme","yermo","yerna","yerno","yeros","yerra","yerre","yerro","yersi","yerta","yerto","yervo","yesal","yesar","yesca","yeson","yesos","yetis","yeyes","yeyos","yezgo","yinas","yines","yiras","yiros","yodad","yodan","yodar","yodas","yoden","yodes","yodos","yogar","yogas","yogos","yogui","yogur","yolas","yoqui","yoris","yoses","yoyos","yucal","yucas","yucpa","yudos","yugos","yumba","yumbo","yunga","yunta","yunto","yuras","yures","yutas","yutes","yuyal","yuyos","zabra","zabro","zacas","zacea","zacee","zaceo","zades","zafad","zafan","zafar","zafas","zafen","zafes","zafia","zafio","zafir","zafon","zafos","zafra","zafre","zagal","zagas","zagua","zahen","zahon","zaida","zaina","zaino","zajon","zalas","zalba","zalbo","zalea","zalee","zaleo","zalla","zalle","zallo","zamba","zambo","zampa","zampe","zampo","zanas","zanca","zanco","zanga","zanja","zanje","zanjo","zapad","zapan","zapar","zapas","zapea","zapee","zapen","zapeo","zapes","zaque","zarbo","zarca","zarco","zares","zarja","zarpa","zarpe","zarpo","zarza","zarzo","zatas","zayas","zazas","zazos","zebra","zedas","zegri","zeina","zejel","zenda","zendo","zenes","zenit","zetas","zincs","zocad","zocan","zocar","zocas","zoclo","zocos","zofra","zoilo","zoizo","zolle","zomas","zombi","zomos","zompa","zompo","zonal","zonas","zonda","zonta","zonto","zonza","zonzo","zopas","zopes","zopos","zoque","zorra","zorro","zotal","zotes","zotol","zuavo","zubia","zudas","zueca","zueco","zuela","zuiza","zulla","zulle","zullo","zulus","zumas","zumba","zumbe","zumbo","zumos","zunas","zunza","zuñan","zuñas","zuñen","zuñes","zuñia","zuñid","zuñir","zuñis","zuños","zupia","zuras","zurba","zurce","zurci","zurda","zurde","zurdi","zurdo","zurea","zuree","zureo","zuros","zurra","zurre","zurri","zurro","zurza","zurzo","zuzar","zuzon",
 ];
+const baseUrl = baseURL()
+const formatWord = (word) => {
+    const newWord = {
+        'word': word,
+        'array': [],
+    };
+    for (let i = 0; i < word.length; i++) {
+        newWord.array.push({letter: word[i], validated: false, correct: false});
+    }
+    // console.log(newWord);
+    return newWord;
+}
 
 export const getRandomWord = async () => {
     try {
-        const response = await fetch('https://clientes.api.greenborn.com.ar/public-random-word?l=5', {
-        });
+        const response = await fetch(`${baseUrl}/json/words.json`);
+        // console.log(response);
         const randomWord = await response.json();
-        // console.log(randomWord[0])
-        if(randomWord[0].length < 5){
-            getRandomWord();
-        }
-        else {
-            return randomWord[0]
-        }
+        // console.log(randomWord)
+        const cWords = randomWord.length;
+        const wordReturn = randomWord[Math.floor(Math.random() * cWords)];
+        return formatWord(wordReturn);
     } catch (error) {
         const cWords = wordsBD.length;
-        return wordsBD[Math.floor(Math.random() * cWords)];
+        const randomWord = wordsBD[Math.floor(Math.random() * cWords)]
+        return formatWord(randomWord);
     }
 }
