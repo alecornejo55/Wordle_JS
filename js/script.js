@@ -10,31 +10,84 @@ let darkMode = JSON.parse(localStorage.getItem('darkMode')) ?? false;
 // boton darkmode
 const btnDarkMode = document.getElementById('switchDarkMode');
 
-const starGame = async () => {
+const resetGame = () => {
+    //Volvemos a 0 las variables
+    currWord = 0;
+    currLetter = 0;
+    currGuess = [];
+    
+    // Quitamos estilos al keyboard virtual
+    const keys = document.querySelectorAll('.keyboard-button');
+    keys.forEach(key => {
+        key.classList.remove('correct');
+        key.classList.remove('inWord');
+        key.classList.remove('incorrect');
+    });
+
+    startGame();
+};
+const startGame = async () => {
     const homeGame = document.getElementById("homeGame");
     const dashGame = document.getElementById("dashGame");
     const divLoading = document.getElementById("loading");
     const kboard = document.getElementById('keyboard-cont');
-    homeGame.classList.toggle('d-none');
-    dashGame.classList.toggle('d-none');
+    homeGame.classList.add('d-none');
+    dashGame.classList.remove('d-none');
+    divLoading.classList.remove('d-none');
     randomWord = await getRandomWord();
     // console.log(randomWord);
     renderBoard();
-    divLoading.classList.toggle('d-none');
-    kboard.classList.toggle('d-none');
+    divLoading.classList.add('d-none');
+    kboard.classList.remove('d-none');
     // Evento cuando escriben por teclado físico
-    window.addEventListener("keyup", (event) => {
+    window.onkeyup = (event) => {
         keyboardActions(event.key);
-    });
+    };
     // Eventos cuando usan el teclado virtual
-    kboard.addEventListener('click', (e) => {
+    kboard.onclick = (e) => {
         const keyClicked = e.target;
         const keyValue = keyClicked.getAttribute('data-value');
         if(keyValue !== null){
             keyboardActions(keyValue);
         }
         keyClicked.blur();
-    });
+    };
+}
+
+const finishGame = (result) => {
+    let word = randomWord.word.toUpperCase();
+    let title = `¡Oops!`;
+    let message = `¡Perdiste! La palabra era "<b>${word}</b>"`;
+    let icon = `error`;
+    
+    if(result){
+        title = `¡Felicitaciones!`;
+        message = `¡Adivinaste la palabra!`;
+        icon = `success`;
+    }
+
+    currWord = CANTWORDS;
+    currLetter = CANTLETTERS;
+
+    Swal.fire({
+        title: `${title}`,
+        html: `${message}<br>¿Querés jugar de nuevo?`,
+        icon: `${icon}`,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cerrar',
+        confirmButtonText: 'Volver a jugar',
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-secondary'
+        },
+    })
+    .then((result) => {
+        if (result.isConfirmed) {
+            resetGame();
+        }
+    })
 }
 
 const switchDarkMode = (checkDarkMode) => {
@@ -51,6 +104,7 @@ const switchDarkMode = (checkDarkMode) => {
 }
 const renderBoard = () => {
     const gameBoardContainer = document.getElementById("game-board");
+    gameBoardContainer.innerHTML = '';
     // recorre cantidad de filas
     for(let row = 1 ; row <= CANTWORDS; row++){
         // Creamos el div de la fila
@@ -68,6 +122,7 @@ const renderBoard = () => {
             div.appendChild(celda);
         }
     }
+
 }
 
 // Función que ingresa letra en el tablero
@@ -146,9 +201,14 @@ const validateWord = async () => {
         for (const letter of word.children) {
             const letterText = letter.innerText.toLowerCase();
             const thisLetter = checkLetter(letterText, index);
-            // console.log(letterText);
+
             letter.classList.add(thisLetter);
-            document.querySelector(`.keyboard-button[data-value="${letterText}"]`).classList.add(thisLetter);
+            const keyV = document.querySelector(`.keyboard-button[data-value="${letterText}"]`);
+            // remuevo la clase inword del teclado físico por si la letra fue acertada
+            keyV.classList.remove('inWord');
+
+            keyV.classList.add(thisLetter);
+
             await animateCSS(letter, 'fadeIn', undefined, 0.3);
             if(thisLetter !== 'correct'){
                 correct = false;
@@ -156,13 +216,10 @@ const validateWord = async () => {
             index++;
         }
         if(correct){
-            Swal.fire(
-                '¡Felicitaciones!',
-                '¡Adivinaste la palabra!',
-                'success'
-            );
-            currWord = CANTWORDS;
-            currLetter = CANTLETTERS;
+            finishGame(true)
+        }
+        else if( currWord === (CANTWORDS - 1) ){
+            finishGame(false)
         }
         else {
             // reseteo validaciones
@@ -194,7 +251,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     // acción del botón de inicio de juego  
     const btnStart = document.getElementById('btn-start');
     btnStart.addEventListener('click', (e) => {
-        starGame();
+        startGame();
     });
 
     // acción boton darkmode
