@@ -15,7 +15,11 @@ const resetGame = () => {
     currWord = 0;
     currLetter = 0;
     currGuess = [];
-    
+
+    // Vaciamos el tablero
+    const gameBoardContainer = document.getElementById("game-board");
+    gameBoardContainer.innerHTML = '';
+
     // Quitamos estilos al keyboard virtual
     const keys = document.querySelectorAll('.keyboard-button');
     keys.forEach(key => {
@@ -26,19 +30,32 @@ const resetGame = () => {
 
     startGame();
 };
+// Función de inicio de juego
 const startGame = async () => {
     const homeGame = document.getElementById("homeGame");
     const dashGame = document.getElementById("dashGame");
     const divLoading = document.getElementById("loading");
     const kboard = document.getElementById('keyboard-cont');
+
+    // Oculta el home, mostramos el juego
     homeGame.classList.add('d-none');
     dashGame.classList.remove('d-none');
     divLoading.classList.remove('d-none');
+
+    // Oculta el teclado
+    kboard.classList.add('d-none');
+
+    // Obtiene una palabra aleatoria y renderiza el tablero
     randomWord = await getRandomWord();
-    // console.log(randomWord);
-    renderBoard();
-    divLoading.classList.add('d-none');
-    kboard.classList.remove('d-none');
+
+    // Fuerzo un timeout para que se vea el loading (menos de 1 segundo)
+    setTimeout(() => {
+        renderBoard();
+        // Oculta el loading y muestra el teclado
+        divLoading.classList.add('d-none');
+        kboard.classList.remove('d-none');
+    }, 800);
+    
     // Evento cuando escriben por teclado físico
     window.onkeyup = (event) => {
         keyboardActions(event.key);
@@ -53,7 +70,7 @@ const startGame = async () => {
         keyClicked.blur();
     };
 }
-
+// Función de finalización de juego
 const finishGame = (result) => {
     let word = randomWord.word.toUpperCase();
     let title = `¡Oops!`;
@@ -84,12 +101,13 @@ const finishGame = (result) => {
         },
     })
     .then((result) => {
+        // Pregunta si desea jugar otra vez
         if (result.isConfirmed) {
             resetGame();
         }
     })
 }
-
+// Función que habilita / deshabilita el darkmode
 const switchDarkMode = (checkDarkMode) => {
     const body = document.querySelector('body');
     // console.log(checkDarkMode);
@@ -102,9 +120,10 @@ const switchDarkMode = (checkDarkMode) => {
     btnDarkMode.checked = checkDarkMode;
     localStorage.setItem('darkMode', JSON.stringify(checkDarkMode));
 }
+
+// Función que renderiza el tablero
 const renderBoard = () => {
     const gameBoardContainer = document.getElementById("game-board");
-    gameBoardContainer.innerHTML = '';
     // recorre cantidad de filas
     for(let row = 1 ; row <= CANTWORDS; row++){
         // Creamos el div de la fila
@@ -112,7 +131,6 @@ const renderBoard = () => {
         div.className = 'letter-row';
         // inserta
         gameBoardContainer.appendChild(div);
-
         // recorre las letras por fila
         for(let letter = 1; letter <= CANTLETTERS; letter++){
             // creamos la letra
@@ -127,11 +145,14 @@ const renderBoard = () => {
 
 // Función que ingresa letra en el tablero
 const insertLetter = (newLetter) => {
+    // Si la cantidad de letras es menor a la cantidad de letras del tablero
     if(currLetter < CANTLETTERS){
         const word = document.querySelectorAll('#game-board .letter-row')[currWord];
         const letter = word.children[currLetter];
         animateCSS(letter, "fadeIn", undefined, 0.2);
         letter.innerText = newLetter;
+        
+        // Inserta la letra en el array de letras
         currGuess.push(newLetter)
         currLetter++;
     }
@@ -169,9 +190,10 @@ const checkLetter = (letter, index) => {
 
 // Función que valida la palabra al presionar enter
 const validateWord = async () => {
-    // console.log(currLetter);
-    // console.log(currWord);
+    // Extrae la palabra que se ingresó
     const word = document.querySelectorAll('#game-board .letter-row')[currWord];
+
+    // Si escribió menos de la cantidad de letras requeridas y si no terminó el juego
     if(currLetter !== CANTLETTERS && currWord < CANTWORDS){
         animateCSS(word, "headShake", undefined, 0.8);
         Toastify({
@@ -182,6 +204,8 @@ const validateWord = async () => {
             }
         }).showToast();
     }
+
+    // Si escribió la cantidad de letras requeridas y si no terminó el juego
     if(currLetter === CANTLETTERS && currWord < CANTWORDS){
         let thisGuess = currGuess.join('');
         if(!wordsBD.some((row) => row == thisGuess)){
@@ -195,6 +219,7 @@ const validateWord = async () => {
             }).showToast();
             return false;
         }
+
         // console.log(word);
         let index = 0;
         let correct = true;
