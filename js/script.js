@@ -169,11 +169,25 @@ const deleteLetter = () => {
         currLetter--;
     }
 }
-
+// Chequea si la letra es correcta en letras posteriores
+const checkIfCorrect = (letter, index) => {
+    let existsCorrect = false;
+    // Busca si hay una letra igual más adelante de la palabra
+    const findNextLetter = currGuess.findIndex((guess, i) => guess == letter && i > index);
+    if(findNextLetter > -1){
+        // Si existe la letra más adelante y es correcta
+        if(randomWord['array'][findNextLetter].letter ==  letter){
+            // Le quita que fue validada y devuelve true
+            randomWord['array'][findNextLetter].validated = false;
+            existsCorrect = true;
+        }
+    }
+    return existsCorrect;
+}
 const checkLetter = (letter, index) => {
     letter = letter.toLowerCase();
     let correct = 'incorrect';
-    // console.log(randomWord, index);
+    // console.log(currGuess);
     randomWord['array'].forEach((row, i) => {
         if(row.letter == letter && i === index && row.validated === false){
             correct = 'correct';
@@ -185,6 +199,9 @@ const checkLetter = (letter, index) => {
         }
         // console.log(row.letter, letter, i, row.validated);
     });
+    if(correct == 'inWord' && checkIfCorrect(letter, index)){
+        correct = 'incorrect';
+    }
     return correct;
 }
 
